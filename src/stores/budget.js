@@ -13,7 +13,10 @@ export const useBudgetStore = defineStore('budget', {
             foodCollected: 0,
             clean: 100,
             click: 1,
-            food: 5
+            food: 5,
+            autoClick: 0,
+            autoFood: 0,
+            autoClean: 0
         }
     },
 
@@ -29,10 +32,16 @@ export const useBudgetStore = defineStore('budget', {
         // взаимодействие с животными
         buyAnimal(animalName) {
             const animalsStore = useAnimalsStore()
-            if (this.money >= animalsStore.getAnimal(animalName).price) {
-                this.money -= animalsStore.getAnimal(animalName).price;
-                animalsStore.getAnimal(animalName).count++
-                animalsStore.getAnimal(animalName).price *= 1.1;
+            const animal = animalsStore.getAnimal(animalName)
+            if (this.money >= animal.price && animal.count < animal.max) {
+                this.money -= animal.price;
+                animal.count++
+                animal.price *= 1.1;
+
+                this.autoClick += animal.income
+                this.autoFood -= animal.food
+                this.autoClean -= animal.clean
+
                 this.animalsPurchased++
             }
             else {
@@ -42,9 +51,20 @@ export const useBudgetStore = defineStore('budget', {
 
         sellAnimal(animalName) {
             const animalsStore = useAnimalsStore()
-            this.money += animalsStore.getAnimal(animalName).price * 0.7;
-            animalsStore.getAnimal(animalName).count--
-            this.animalsPurchased--
+            const animal = animalsStore.getAnimal(animalName)
+            if (this.money >= 0 && animal.count > 0) {
+                this.money += animal.price * 0.7;
+                animal.count--
+
+                this.autoClick -= animal.income
+                this.autoFood += animal.food
+                this.autoClean += animal.clean
+
+                this.animalsPurchased--
+            }
+            else {
+                this.badMove()
+            }
         },
 
         updateAnimal(animalName) {
@@ -76,10 +96,17 @@ export const useBudgetStore = defineStore('budget', {
         buyWorker(workerName) {
             // покупка
             const workersStore = useWorkersStore()
-            if (this.money >= workersStore.getWorker(workerName).price) {
-                this.money -= workersStore.getWorker(workerName).price;
-                workersStore.getWorker(workerName).count++
-                workersStore.getWorker(workerName).price *= 1.1;
+            const worker = workersStore.getWorker(workerName)
+
+            if (this.money >= worker.price) {
+                this.money -= worker.price;
+                worker.count++
+                worker.price *= 1.1;
+
+                this.autoClick -= worker.salary
+                this.autoFood += worker.food
+                this.autoClean += worker.clean
+
                 this.workersPurchased++
             }
             else {
@@ -90,9 +117,14 @@ export const useBudgetStore = defineStore('budget', {
         sellWorker(workerName) {
             // продажа
             const workersStore = useWorkersStore()
-            this.money += workersStore.getWorker(workerName).price * 0.7;
-            workersStore.getWorker(workerName).count--
+            const worker = workersStore.getWorker(workerName)
+            this.money += worker.price * 0.7;
+            worker.count--
             this.workersPurchased--
+
+            this.autoClick += worker.salary
+            this.autoFood -= worker.food
+            this.autoClean -= worker.clean
         },
 
         updateWorker(workerName) {
@@ -129,6 +161,14 @@ export const useBudgetStore = defineStore('budget', {
                 this.foodCollected += 1
                 this.money -= this.food
             }
+        },
+
+        income() {
+            setInterval(() => {
+                this.money += this.autoClick
+                this.foodCollected += this.autoFood
+                this.clean += this.autoClean
+            }, 1000)
         },
 
         resetStore() {

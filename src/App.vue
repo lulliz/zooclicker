@@ -7,7 +7,7 @@
         </div>
         <div v-if="route.path != '/'" class="col-span-2 md:col-span-1 order-3 md:order-2">
           <a class="btn btn-ghost normal-case text-xl">💰 {{ numberConverter(budget.money) }}</a>
-          <a class="btn btn-ghost normal-case text-xl">🦊 {{ numberConverter(budget.animalsPurchased) }}</a>
+          <!-- <a class="btn btn-ghost normal-case text-xl">🦊 {{ numberConverter(budget.animalsPurchased) }}</a> -->
           <a class="btn btn-ghost normal-case text-xl">🥕 {{ numberConverter(budget.foodCollected) }}</a>
           <a class="btn btn-ghost normal-case text-xl">🧹 {{ numberConverter(budget.clean) }}</a>
         </div>
@@ -37,6 +37,7 @@
 <script setup>
 import { RouterLink, RouterView, useRoute } from 'vue-router'
 import { useBudgetStore } from '@/stores/budget.js'
+import { onMounted } from 'vue';
 
 const budget = useBudgetStore()
 const route = useRoute()
@@ -50,6 +51,10 @@ const numberConverter = (value) => {
     return Math.floor(value)
   }
 }
+
+onMounted(() => {
+  budget.income()
+})
 </script>
 
 <style scoped></style>
