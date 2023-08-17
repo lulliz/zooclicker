@@ -136,6 +136,7 @@ export const useAnimalsStore = defineStore('animals', {
     actions: {
         resetStore() {
             localStorage.removeItem('animals');
+            this.$reset()
         }
     }
 })

@@ -89,6 +89,7 @@ export const useWorkersStore = defineStore('workers', {
     actions: {
         resetStore() {
             localStorage.removeItem('workers');
+            this.$reset()
         }
     }
 })
