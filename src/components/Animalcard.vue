@@ -21,6 +21,12 @@
             </div>
         </div>
     </div>
+    <div v-if="!animal.unlock" class="card card-compact bg-base-100 border relative">
+        <div class="card-body grayscale">
+            <img src="@/assets/icons/profits.png" alt="Avatar" class="w-1/5 mx-auto my-8" />
+            <button class="btn btn-error col-span-2">Need {{ numberConverter(animal.price) }}</button>
+        </div>
+    </div>
 </template>
 
 <script setup>

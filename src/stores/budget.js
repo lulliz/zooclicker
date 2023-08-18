@@ -11,7 +11,7 @@ export const useBudgetStore = defineStore('budget', {
             animalsPurchased: 0,
             workersPurchased: 0,
             foodCollected: 10,
-            clean: 100,
+            clean: 1000,
             click: 1,
             food: 5,
             autoClick: 0,

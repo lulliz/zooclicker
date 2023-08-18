@@ -32,8 +32,8 @@
                 </div>
               </div>
             </th>
-            <td v-if="animal.count > 0 || animal.unlock" class="min-w-[12rem] md:w-80">{{ animal.desc }}</td>
-            <td v-if="animal.count > 0 || animal.unlock" class="text-center">{{ animal.count }} / {{ animal.max }}</td>
+            <td v-if="animal.count > 0 || animal.unlock" class="min-w-[12rem] md:w-80 first-letter:uppercase">{{ animal.desc }}</td>
+            <td v-if="animal.count > 0 || animal.unlock" class="text-center min-w-[5rem]">{{ animal.count }} / {{ animal.max }}</td>
             <td v-if="animal.count > 0 || animal.unlock" class="text-center">{{ numberConverter(animal.price) }}</td>
             <!-- <td v-if="animal.count > 0 || animal.unlock" class="text-success text-center">{{ numberConverter(animal.health) }}</td> -->
             <td v-if="animal.count > 0 || animal.unlock" class="text-error text-center">- {{ numberConverter(animal.food) }}</td>
@@ -72,8 +72,8 @@
                 </div>
               </div>
             </th>
-            <td v-if="worker.count > 0 || worker.unlock" class="min-w-[12rem] md:w-80">{{ worker.desc }}</td>
-            <td v-if="worker.count > 0 || worker.unlock" class="text-center">{{ worker.count }} / {{ worker.max }}</td>
+            <td v-if="worker.count > 0 || worker.unlock" class="min-w-[12rem] md:w-80 first-letter:uppercase">{{ worker.desc }}</td>
+            <td v-if="worker.count > 0 || worker.unlock" class="text-center min-w-[5rem]">{{ worker.count }} / {{ worker.max }}</td>
             <td v-if="worker.count > 0 || worker.unlock" class="text-center">{{ numberConverter(worker.price) }}</td>
             <!-- <td v-if="worker.count > 0 || worker.unlock" class="text-success text-center">+ {{ numberConverter(worker.health) }}</td> -->
             <td v-if="worker.count > 0 || worker.unlock" class="text-success text-center">+ {{ numberConverter(worker.food) }}</td>

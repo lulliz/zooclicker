@@ -48,6 +48,15 @@
             <div class="stat-value text-3xl">{{ numberConverter(budget.animalsPurchased) }}</div>
           </div>
         </div>
+        <div class="stats border w-full md:w-2/5 lg:w-auto">
+          <div class="stat">
+            <div class="stat-figure text-primary">
+              <p class="p-4 text-4xl">🧑</p>
+            </div>
+            <div class="stat-title">Total Workers</div>
+            <div class="stat-value text-3xl">{{ numberConverter(budget.workersPurchased) }}</div>
+          </div>
+        </div>
       </div>
       <div class="zoo-garden grid rounded-2xl md:w-full xl:w-4/5">
         <div class="row">
@@ -138,12 +147,14 @@
           </div>
         </div>
       </div>
+      <Modal></Modal>
     </div>
   </div>
 </template>
 
 <script setup>
 import { onMounted, ref, watch, computed } from 'vue'
+import Modal from '@/components/Modal.vue'
 import { useBudgetStore } from '@/stores/budget.js'
 import { useAnimalsStore } from '@/stores/animals.js'
 
@@ -226,27 +237,28 @@ function watchAndGenerateList(animal) {
 function setRandomPositions(list) {
   maxTop.value = cage.value.offsetHeight - ballSize
   maxLeft.value = cage.value.offsetWidth - ballSize
-
-  const then = ref(Date.now())
-  list.forEach(item => {
-    item.top = Math.floor(Math.random() * maxTop.value)
-    item.left = Math.floor(Math.random() * maxLeft.value)
-  })
-  function animate() {
-    const delta = Date.now() - then.value;
-    if (delta < 5000) {
+  if (list.length != 0) {
+    const then = ref(Date.now())
+    list.forEach(item => {
+      item.top = Math.floor(Math.random() * maxTop.value)
+      item.left = Math.floor(Math.random() * maxLeft.value)
+    })
+    function animate() {
+      const delta = Date.now() - then.value;
+      if (delta < 5000) {
+        requestAnimationFrame(animate);
+        return;
+      }
+      then.value = Date.now();
+      const randomItem = list[Math.floor(Math.random() * list.length)]
+      randomItem.top = Math.floor(Math.random() * maxTop.value)
+      randomItem.left = Math.floor(Math.random() * maxLeft.value)
+      randomItem.delay = Math.random() * 5
+      randomItem.speed = (Math.random() * 5) + 1
       requestAnimationFrame(animate);
-      return;
     }
-    then.value = Date.now();
-    const randomItem = list[Math.floor(Math.random() * list.length)]
-    randomItem.top = Math.floor(Math.random() * maxTop.value)
-    randomItem.left = Math.floor(Math.random() * maxLeft.value)
-    randomItem.delay = Math.random() * 5
-    randomItem.speed = (Math.random() * 5) + 1
     requestAnimationFrame(animate);
   }
-  requestAnimationFrame(animate);
 }
 
 const ballSize = 40

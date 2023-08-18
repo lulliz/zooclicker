@@ -7,7 +7,7 @@
         Animals
       </div>
       <div class="collapse-content">
-        <div class="grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+        <div class="grid gap-4 grid-cols-1 md:grid-cols-2 xl:grid-cols-3">
           <Animalcard v-for="(animal, animalIndex) in animalStore.animals" :key="animalIndex" :animal=animal></Animalcard>
         </div>
       </div>
@@ -18,7 +18,7 @@
         Workers
       </div>
       <div class="collapse-content">
-        <div class="grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+        <div class="grid gap-4 grid-cols-1 md:grid-cols-2 xl:grid-cols-4">
           <Workercard v-for="(worker, workerIndex) in workersStore.workers" :key="workerIndex" :worker=worker></Workercard>
         </div>
       </div>
@@ -29,7 +29,9 @@
         Extra
       </div>
       <div class="collapse-content">
-        <p>More features coming soon!</p>
+        <div class="grid gap-4 grid-cols-1 md:grid-cols-2 xl:grid-cols-4">
+          <Extracard v-for="(extra, extraIndex) in extraStore.extra" :key="extraIndex" :extra=extra></Extracard>
+        </div>
       </div>
     </div>
   </div>
@@ -38,11 +40,14 @@
 <script setup>
 import Animalcard from '@/components/Animalcard.vue'
 import Workercard from '@/components/Workercard.vue'
+import Extracard from '@/components/Extracard.vue'
 import { useAnimalsStore } from '@/stores/animals.js'
 import { useWorkersStore } from '@/stores/workers.js'
+import { useExtraStore } from '@/stores/extra.js'
 
 const animalStore = useAnimalsStore()
 const workersStore = useWorkersStore()
+const extraStore = useExtraStore()
 
 </script>
 

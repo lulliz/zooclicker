@@ -1,11 +1,11 @@
 <template>
   <div class="bg-base-100 w-11/12 xl:w-3/4 m-auto">
-    <header class="">
+    <header class="sticky top-0 z-30">
       <div class="grid grid-cols-1 md:grid-cols-3 md:justify-items-center navbar bg-base-100 shadow-xl rounded-box mt-4">
         <div class="col-span-1">
           <a class="btn btn-ghost normal-case text-xl">Zoo Clicker</a>
         </div>
-        <div v-if="route.path != '/'" class="col-span-2 md:col-span-1 order-3 md:order-2">
+        <div v-if="route.path != '/'" class="col-span-2 md:col-span-1 order-3 md:order-2 justify-center">
           <a class="btn btn-ghost normal-case text-xl">💰 {{ numberConverter(budget.money) }}</a>
           <!-- <a class="btn btn-ghost normal-case text-xl">🦊 {{ numberConverter(budget.animalsPurchased) }}</a> -->
           <a class="btn btn-ghost normal-case text-xl">🥕 {{ numberConverter(budget.foodCollected) }}</a>
@@ -30,6 +30,7 @@
     </div>
     <footer class="flex justify-center navbar bg-base-100 shadow-xl rounded-box my-4">
       <p class="text-center">Made with <font-awesome-icon icon="heart" class="ml-2 hover:text-accent" /></p>
+      <!-- Thanks https://www.flaticon.com/ for all icons -->
     </footer>
   </div>
 </template>
