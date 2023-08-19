@@ -1,107 +1,47 @@
 <template>
   <div class="handbook bg-base-100 shadow-xl rounded-box mt-4 p-4 md:p-8">
-    <h1 class="text-2xl font-bold mb-4">Handbook</h1>
-    <div class="overflow-x-auto">
-      <table class="table table-pin-cols table-pin-rows">
-        <!-- head -->
-        <thead>
-          <tr>
-            <th>Name</th>
-            <td>Description</td>
-            <td class="text-center">Max</td>
-            <td class="text-center">Price</td>
-            <!-- <td class="text-center">Health</td> -->
-            <td class="text-center">Food</td>
-            <td class="text-center">Clean</td>
-            <td class="text-center">Income</td>
-          </tr>
-        </thead>
-        <tbody>
-          <!-- rows animals -->
-          <tr v-for="(animal, animalIndex) in animalStore.animals" :key="animalIndex">
-            <th v-if="animal.count > 0 || animal.unlock" class="">
-              <div class="flex items-center space-x-3">
-                <div class="avat">
-                  <div class="w-12 h-12 flex">
-                    <img :src="`/src/assets/icons/${animal.name}.png`" alt="Avatar" class="w-4/5 m-auto" />
-                  </div>
-                </div>
-                <div>
-                  <div class="font-bold capitalize">{{ animal.name }}</div>
-                  <!-- <div class="text-sm opacity-50">animal</div> -->
-                </div>
-              </div>
-            </th>
-            <td v-if="animal.count > 0 || animal.unlock" class="min-w-[12rem] md:w-80 first-letter:uppercase">{{ animal.desc }}</td>
-            <td v-if="animal.count > 0 || animal.unlock" class="text-center min-w-[5rem]">{{ animal.count }} / {{ animal.max }}</td>
-            <td v-if="animal.count > 0 || animal.unlock" class="text-center">{{ numberConverter(animal.price) }}</td>
-            <!-- <td v-if="animal.count > 0 || animal.unlock" class="text-success text-center">{{ numberConverter(animal.health) }}</td> -->
-            <td v-if="animal.count > 0 || animal.unlock" class="text-error text-center">- {{ numberConverter(animal.food) }}</td>
-            <td v-if="animal.count > 0 || animal.unlock" class="text-error text-center">- {{ numberConverter(animal.clean) }}</td>
-            <td v-if="animal.count > 0 || animal.unlock" class="text-success text-center">+ {{ numberConverter(animal.income) }}</td>
-          </tr>
-        </tbody>
-      </table>
-      <div class="divider sticky left-0 right-0">Workers</div>
-      <table class="table table-pin-cols table-pin-rows">
-        <!-- head -->
-        <thead>
-          <tr>
-            <th>Name</th>
-            <td>Description</td>
-            <td class="text-center">Max</td>
-            <td class="text-center">Price</td>
-            <!-- <td class="text-center">Health</td> -->
-            <td class="text-center">Food</td>
-            <td class="text-center">Clean</td>
-            <td class="text-center">Salary</td>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="(worker, workerIndex) in workersStore.workers" :key="workerIndex">
-            <th v-if="worker.count > 0 || worker.unlock">
-              <div class="flex items-center space-x-3">
-                <div class="avat">
-                  <div class="w-12 h-12 flex">
-                    <img :src="`/src/assets/icons/${worker.name}.png`" alt="Avatar" class="w-4/5 m-auto" />
-                  </div>
-                </div>
-                <div>
-                  <div class="font-bold capitalize">{{ worker.name }}</div>
-                  <!-- <div class="text-sm opacity-50">worker</div> -->
-                </div>
-              </div>
-            </th>
-            <td v-if="worker.count > 0 || worker.unlock" class="min-w-[12rem] md:w-80 first-letter:uppercase">{{ worker.desc }}</td>
-            <td v-if="worker.count > 0 || worker.unlock" class="text-center min-w-[5rem]">{{ worker.count }} / {{ worker.max }}</td>
-            <td v-if="worker.count > 0 || worker.unlock" class="text-center">{{ numberConverter(worker.price) }}</td>
-            <!-- <td v-if="worker.count > 0 || worker.unlock" class="text-success text-center">+ {{ numberConverter(worker.health) }}</td> -->
-            <td v-if="worker.count > 0 || worker.unlock" class="text-success text-center">+ {{ numberConverter(worker.food) }}</td>
-            <td v-if="worker.count > 0 || worker.unlock" class="text-success text-center">+ {{ numberConverter(worker.clean) }}</td>
-            <td v-if="worker.count > 0 || worker.unlock" class="text-error text-center">- {{ numberConverter(worker.salary) }}</td>
-          </tr>
-        </tbody>
-      </table>
+    <div class="flex justify-between">
+      <h1 class="text-2xl font-bold mb-4">Handbook</h1>
+      <button class="btn btn-sm btn-neutral" onclick="rulesModal.showModal()">Rules</button>
     </div>
+    <div class="overflow-x-auto">
+      <div class="divider sticky left-0 right-0">Animals</div>
+      <Tablestore :typeStore="animalStore.animals" :typeIt="'animal'"></Tablestore>
+      <div class="divider sticky left-0 right-0">Workers</div>
+      <Tablestore :typeStore="workersStore.workers" :typeIt="'worker'"></Tablestore>
+      <div class="divider sticky left-0 right-0">Extra</div>
+      <Tablestore :typeStore="extraStore.extra" :typeIt="'extra'"></Tablestore>
+    </div>
+    <dialog id="rulesModal" class="modal modal-bottom sm:modal-middle">
+      <form method="dialog" class="modal-box w-full md:w-4/5 xl:w-2/3">
+        <h3 class="font-bold text-lg">Rules</h3>
+        <ol class="m-4 list-decimal">
+          <li>Each click by default gives 1 coin, but for each corresponding pumping, you can double this value.</li>
+          <li>You can exchange coins for food at the rate of 4 coins = 1 food.</li>
+          <li>Each animal has its own value, eats food, pollutes the cage and generates income. There is also a limit on
+            the number of animals of each species.</li>
+          <li>Each employee has his own cost, feeds the animals, cleans the cages and he needs to pay a salary.</li>
+          <li>There is also a system of upgrades. It is based on random - you will have to experiment :)</li>
+        </ol>
+        <p>The main goal is to collect all kinds of animals so that the zoo is profitable, the animals do not starve and
+            live in a clean environment.</p>
+        <div class="modal-action">
+          <button class="btn">Close</button>
+        </div>
+      </form>
+    </dialog>
   </div>
 </template>
 
 <script setup>
 import { useAnimalsStore } from '@/stores/animals.js'
 import { useWorkersStore } from '@/stores/workers.js'
+import { useExtraStore } from '@/stores/extra.js'
+import Tablestore from '@/components/Tablestore.vue'
 
 const animalStore = useAnimalsStore()
 const workersStore = useWorkersStore()
-
-const numberConverter = (value) => {
-    if (value > 999 && value < 1000000) {
-        return (Math.floor(value) / 1000).toFixed(2) + 'k'
-    } else if (value > 999999) {
-        return (Math.floor(value) / 1000000).toFixed(2) + 'm'
-    } else {
-        return value.toFixed(2)
-    }
-}
+const extraStore = useExtraStore()
 </script>
 
 <style scoped></style>

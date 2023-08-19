@@ -32,12 +32,14 @@
       <p class="text-center">Made with <font-awesome-icon icon="heart" class="ml-2 hover:text-accent" /></p>
       <!-- Thanks https://www.flaticon.com/ for all icons -->
     </footer>
+    <Modal></Modal>
   </div>
 </template>
 
 <script setup>
 import { RouterLink, RouterView, useRoute } from 'vue-router'
 import { useBudgetStore } from '@/stores/budget.js'
+import Modal from '@/components/Modal.vue'
 import { onMounted } from 'vue';
 
 const budget = useBudgetStore()

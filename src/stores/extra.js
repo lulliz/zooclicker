@@ -8,7 +8,7 @@ export const useExtraStore = defineStore('extra', {
             extra: [
                 {
                     name: 'click',
-                    desc: 'More money for each click!',
+                    desc: 'More money for each your own click!',
                     count: 1,
                     max: 10,
                     price: 32,
@@ -19,7 +19,19 @@ export const useExtraStore = defineStore('extra', {
                     unlock: true
                 },
                 {
-                    name: 'candy shop',
+                    name: 'photo',
+                    desc: 'The best photographers who really likes work with animals',
+                    count: 0,
+                    max: 8,
+                    price: 16384,
+                    income: 2048,
+                    clean: 0,
+                    food: 0,
+                    health: 0,
+                    unlock: false
+                },
+                {
+                    name: 'candies',
                     desc: 'sweets, cotton candy, lollipop and much more are waiting for you here',
                     count: 0,
                     max: 4,

@@ -6,15 +6,15 @@
                 <div class="btn btn-xs btn-outline btn-neutral border">{{ extra.count }}</div>
             </div>
             <h2 class="card-title capitalize">{{ extra.name }}</h2>
-            <img :src="`/src/assets/icons/${extra.name}.png`" alt="Avatar" class="w-1/5 m-auto" />
+            <img :src="`/src/assets/icons/${extra.name}.png`" alt="Avatar" class="w-1/4 m-auto" />
             <div class="grid grid-cols-5 gap-2 md:gap-4 mt-4">
-                <button @click="budget.buyExtra(extra.name)" class="btn btn-success col-span-2"
+                <button @click="budget.buyExtra(extra.name)" class="btn btn-md xl:btn-sm btn-success col-span-2"
                     :class="extra.price > budget.money ? 'btn-disabled' : ''">Buy <font-awesome-icon icon="paw" /></button>
-                <div v-if="extra.count > 0 && extra.unlock && extra.name != 'click'" class="tooltip tooltip-warning tooltip-bottom" :data-tip="`Try Your luck for 💰${numberConverter(extra.price * 1.2)}`">
+                <!-- <div v-if="extra.count > 0 && extra.unlock && extra.name != 'click'" class="tooltip tooltip-warning tooltip-bottom" :data-tip="`Try Your luck for 💰${numberConverter(extra.price * 1.2)}`">
                     <button @click="budget.updateExtra(extra.name)"
                         class="btn btn-warning">
                         <font-awesome-icon icon="circle-up" /></button>
-                </div>
+                </div> -->
             </div>
         </div>
     </div>

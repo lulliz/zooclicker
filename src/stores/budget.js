@@ -1,22 +1,24 @@
 import { defineStore } from 'pinia'
 import { useAnimalsStore } from './animals.js'
 import { useWorkersStore } from './workers.js'
+import { useExtraStore } from './extra.js'
 import serializer from '@/helpers/serializer.js'
 
 
 export const useBudgetStore = defineStore('budget', {
     state: () => {
         return {
-            money: 100,
-            animalsPurchased: 0,
-            workersPurchased: 0,
-            foodCollected: 10,
-            clean: 1000,
+            money: 1,
+            foodCollected: 1,
+            clean: 100,
             click: 1,
-            food: 5,
+            food: 4,
             autoClick: 0,
             autoFood: 0,
-            autoClean: 0
+            autoClean: 0,
+            animalsPurchased: 0,
+            workersPurchased: 0,
+            extraPurchased: 0,
         }
     },
 
@@ -136,6 +138,29 @@ export const useBudgetStore = defineStore('budget', {
             this.autoClick -= (worker.salary - old_list[0])
             this.autoFood += (worker.food - old_list[1])
             this.autoClean += (worker.clean - old_list[2])
+        },
+
+        buyExtra(extraName) {
+            const extraStore = useExtraStore()
+            const extra = extraStore.getExtra(extraName)
+            if (this.money >= extra.price && extra.count < extra.max) {
+                this.money -= extra.price;
+                extra.count++
+                extra.price *= 2;
+
+                this.autoClick += extra.income
+                this.autoFood -= extra.food
+                this.autoClean -= extra.clean
+
+                this.extraPurchased++
+                console.log(extraName);
+                if (extraName == 'click') {
+                    this.click *= 2
+                }
+            }
+            else {
+                this.badMove()
+            }
         },
 
         getCoin() {

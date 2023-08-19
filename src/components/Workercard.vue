@@ -6,18 +6,18 @@
                 <div class="btn btn-xs btn-outline btn-neutral border">{{ worker.count }}</div>
             </div>
             <h2 class="card-title capitalize">{{ worker.name }}</h2>
-            <img :src="`/src/assets/icons/${worker.name}.png`" alt="Avatar" class="w-1/5 m-auto" />
+            <img :src="`/src/assets/icons/${worker.name}.png`" alt="Avatar" class="w-1/3 m-auto" />
             <div class="grid grid-cols-5 gap-2 md:gap-4 mt-4">
-                <button @click="budget.buyWorker(worker.name)" class="btn btn-success col-span-2"
+                <button @click="budget.buyWorker(worker.name)" class="btn btn-md xl:btn-sm btn-success col-span-2"
                     :class="worker.price > budget.money ? 'btn-disabled' : ''">Hire <font-awesome-icon icon="paw" /></button>
                 <div v-if="worker.count > 0 && worker.unlock" class="tooltip tooltip-warning tooltip-bottom"
                     :data-tip="`Try Your luck for 💰${numberConverter(worker.price * 1.2)}`">
                     <button @click="budget.updateWorker(worker.name)"
-                        class="btn btn-warning">
+                        class="btn btn-md xl:btn-sm btn-warning">
                         <font-awesome-icon icon="circle-up" /></button>
                 </div>
                 <button @click="budget.sellWorker(worker.name)" v-if="worker.count > 0"
-                    class="btn btn-error col-span-2">Tire
+                    class="btn btn-md xl:btn-sm btn-error col-span-2">Tire
                     <font-awesome-icon icon="paw" /></button>
             </div>
         </div>

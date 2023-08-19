@@ -147,14 +147,25 @@
           </div>
         </div>
       </div>
-      <Modal></Modal>
+      <dialog id="welcomeModal" class="modal modal-bottom sm:modal-middle" :class="isWelcome ? 'modal-open' : ''">
+      <form method="dialog" class="modal-box w-full md:w-4/5 xl:w-2/3">
+        <h3 class="font-bold text-lg mb-2">Welcome email</h3>
+        <img src="@/assets/icons/director.png" alt="director" class="w-1/2 m-auto block my-2">
+        <h2 class="text-xl py-2">Hello! 👋 <br> My name is Julia and I decided to open my own zoo.</h2>
+        <p class="text-lg py-2">You will be my main assistant and manager of the zoo.</p>
+        <p class="text-lg py-2">You can hire employees, buy animals and make improvements. You can find the rules on the Handbook page.</p>
+        <p class="text-lg py-2">A fascinating journey awaits us, if you are ready, then press the button below and go!</p>
+        <div class="modal-action">
+          <button class="btn" @click="closeWelcome()">Start</button>
+        </div>
+      </form>
+    </dialog>
     </div>
   </div>
 </template>
 
 <script setup>
-import { onMounted, ref, watch, computed } from 'vue'
-import Modal from '@/components/Modal.vue'
+import { onMounted, ref, watch } from 'vue'
 import { useBudgetStore } from '@/stores/budget.js'
 import { useAnimalsStore } from '@/stores/animals.js'
 
@@ -172,6 +183,16 @@ const numberConverter = (value) => {
   }
 }
 
+
+const isWelcome = ref(true)
+function saveToStorage() {
+  localStorage.setItem('isWelcome', JSON.stringify(isWelcome.value))
+}
+
+const closeWelcome = () => {
+  isWelcome.value = false
+  saveToStorage()
+}
 
 const allAnimals = {
   rabbit: {
@@ -290,6 +311,12 @@ onMounted(() => {
   setRandomPositions(allAnimals.bear.list.value)
   setRandomPositions(allAnimals.dumbo.list.value)
   setRandomPositions(allAnimals.dino.list.value)
+
+  const stored = localStorage.getItem('isWelcome')
+  if (stored) {
+    console.log();
+    isWelcome.value = JSON.parse(stored) 
+  }
 })
 </script>
 
