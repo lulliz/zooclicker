@@ -19,6 +19,8 @@ export const useBudgetStore = defineStore('budget', {
             animalsPurchased: 0,
             workersPurchased: 0,
             extraPurchased: 0,
+            winner: false,
+            loser: false
         }
     },
 
@@ -180,12 +182,14 @@ export const useBudgetStore = defineStore('budget', {
                     this.money += this.autoClick
                     this.foodCollected += this.autoFood
                     this.clean += this.autoClean
+                    if (this.money > 100000 && this.foodCollected > 10000 && this.clean > 10000 && this.animalsPurchased >= 95) {
+                        this.winner = true
+                        clearInterval(gameTimer)
+                    }
                 }
                 else {
-                    this.gameOver()
-                    this.resetStore()
+                    this.loser = true
                     clearInterval(gameTimer)
-                    this.income()
                 }
             }, 1000)
         },
@@ -193,14 +197,25 @@ export const useBudgetStore = defineStore('budget', {
         resetStore() {
             const workersStore = useWorkersStore()
             const animalsStore = useAnimalsStore()
+            const extraStore = useExtraStore()
             workersStore.resetStore()
             animalsStore.resetStore()
-            localStorage.removeItem('budget');
+            extraStore.resetStore()
             this.$reset()
         },
 
+        newGamePlus() {
+            this.resetStore()
+            this.income()
+            this.winner = false
+            location.reload()
+        },
+
         gameOver() {
-            console.log('Game Over');
+            this.resetStore()
+            this.income()
+            this.loser = false
+            location.reload()
         },
 
         badMove() {
