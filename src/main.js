@@ -3,6 +3,7 @@ import './assets/main.css'
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
 import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
+import VueYandexMetrika from 'vue-yandex-metrika'  
 
 import App from './App.vue'
 import router from './router'
@@ -25,5 +26,11 @@ pinia.use(piniaPluginPersistedstate)
 
 app.use(pinia)
 app.use(router)
+
+app.use(VueYandexMetrika, {
+    id: 29403075,
+    router: router,
+    env: process.env.NODE_ENV
+})
 
 app.mount('#app')
