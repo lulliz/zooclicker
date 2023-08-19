@@ -98,7 +98,7 @@ export const useBudgetStore = defineStore('budget', {
                 worker.count++
                 worker.price *= 1.1;
 
-                this.autoClick -= worker.salary
+                this.autoClick -= worker.income
                 this.autoFood += worker.food
                 this.autoClean += worker.clean
 
@@ -117,7 +117,7 @@ export const useBudgetStore = defineStore('budget', {
             worker.count--
             this.workersPurchased--
 
-            this.autoClick += worker.salary
+            this.autoClick += worker.income
             this.autoFood -= worker.food
             this.autoClean -= worker.clean
         },
@@ -127,15 +127,15 @@ export const useBudgetStore = defineStore('budget', {
             const worker = workersStore.getWorker(workerName)
             this.money -= worker.price * 1.2
 
-            const old_list = [worker.salary, worker.food, worker.clean]
+            const old_list = [worker.income, worker.food, worker.clean]
 
             worker.price *= 1 + Number((Math.random() * 0.14 + 0.02).toFixed(2))
             worker.health *= 1 + Number((Math.random() * 0.14 + 0.02).toFixed(2))
             worker.food *= 1 + Number((Math.random() * 0.14 + 0.02).toFixed(2))
             worker.clean *= 1 + Number((Math.random() * 0.14 + 0.02).toFixed(2))
-            worker.salary *= 1 + Number((Math.random() * 0.14 + 0.02).toFixed(2))
+            worker.income *= 1 + Number((Math.random() * 0.14 + 0.02).toFixed(2))
 
-            this.autoClick -= (worker.salary - old_list[0])
+            this.autoClick -= (worker.income - old_list[0])
             this.autoFood += (worker.food - old_list[1])
             this.autoClean += (worker.clean - old_list[2])
         },
