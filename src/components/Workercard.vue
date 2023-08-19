@@ -6,7 +6,7 @@
                 <div class="btn btn-xs btn-outline btn-neutral border">{{ worker.count }}</div>
             </div>
             <h2 class="card-title capitalize">{{ worker.name }}</h2>
-            <img :src="`/src/assets/icons/${worker.name}.png`" alt="Avatar" class="w-1/3 m-auto" />
+            <img :src="getImage(worker.name)" alt="Avatar" class="w-1/3 m-auto" />
             <div class="grid grid-cols-5 gap-2 md:gap-4 mt-4">
                 <button @click="budget.buyWorker(worker.name)" class="btn btn-md xl:btn-sm btn-success col-span-2"
                     :class="worker.price > budget.money ? 'btn-disabled' : ''">Hire <font-awesome-icon icon="paw" /></button>
@@ -57,5 +57,9 @@ const numberConverter = (value) => {
     } else {
         return Math.floor(value)
     }
+}
+
+const getImage = (animal) => {
+    return `/src/assets/icons/${animal}.png`
 }
 </script>

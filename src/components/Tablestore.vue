@@ -19,7 +19,7 @@
               <div class="flex items-center">
                 <div class="avat">
                   <div class="w-12 h-12 flex">
-                    <img :src="`/src/assets/icons/${type.name}.png`" alt="Avatar" class="w-4/5 m-auto" />
+                    <img :src="getImage(type.name)" alt="Avatar" class="w-4/5 m-auto" />
                   </div>
                 </div>
                 <div>
@@ -84,5 +84,9 @@ const numberConverter = (value) => {
     } else {
         return value.toFixed(2)
     }
+}
+
+const getImage = (animal) => {
+    return `/src/assets/icons/${animal}.png`
 }
 </script>

@@ -6,7 +6,7 @@
                 <div class="btn btn-xs btn-outline btn-neutral border">{{ animal.count }}</div>
             </div>
             <h2 class="card-title capitalize">{{ animal.name }}</h2>
-            <img :src="`/src/assets/icons/${animal.name}.png`" alt="Avatar" class="w-1/5 m-auto" />
+            <img :src="getImage(animal.name)" alt="Avatar" class="w-1/5 m-auto" />
             <div class="grid grid-cols-5 gap-2 md:gap-4 mt-4">
                 <button @click="budget.buyAnimal(animal.name)" class="btn btn-success col-span-2"
                     :class="animal.price > budget.money ? 'btn-disabled' : ''">Buy <font-awesome-icon icon="paw" /></button>
@@ -56,5 +56,9 @@ const numberConverter = (value) => {
     } else {
         return Math.floor(value)
     }
+}
+
+const getImage = (animal) => {
+    return `/src/assets/icons/${animal}.png`
 }
 </script>
