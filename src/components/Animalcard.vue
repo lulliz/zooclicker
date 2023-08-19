@@ -58,5 +58,5 @@ const numberConverter = (value) => {
     }
 }
 
-const getImage = (animal) => new URL(`../assets/icons/${animal}.png`, import.meta.url).href
+const getImage = (name) => new URL(`../assets/icons/${name}.png`, import.meta.url).href
 </script>
