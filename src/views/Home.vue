@@ -5,8 +5,8 @@
       <div class="flex flex-row flex-wrap lg:flex-col justify-between lg:justify-normal gap-4 w-full lg:w-1/3 xl:w-1/5">
         <div class="stats w-full lg:w-auto border">
           <div class="stat flex justify-between">
-            <button @click="budget.getCoin()" class="btn w-2/5 btn-success">Coin</button>
-            <button @click="budget.getFood()" class="btn w-2/5 btn-warning">Food</button>
+            <button @click="budget.getCoin()" class="btn w-2/5 btn-success touch-manipulation">Coin</button>
+            <button @click="budget.getFood()" class="btn w-2/5 btn-warning touch-manipulation">Food</button>
           </div>
         </div>
         <div class="stats border w-full md:w-2/5 lg:w-auto">

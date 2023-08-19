@@ -83,7 +83,7 @@ export const useBudgetStore = defineStore('budget', {
             animal.food *= 1 + Number((Math.random() * 0.14 + 0.02).toFixed(2))
             animal.clean *= 1 + Number((Math.random() * 0.14 + 0.02).toFixed(2))
             animal.income *= 1 + Number((Math.random() * 0.14 + 0.02).toFixed(2))
-            
+
             this.autoClick += (animal.income - old_list[0])
             this.autoFood -= (animal.food - old_list[1])
             this.autoClean -= (animal.clean - old_list[2])
@@ -95,7 +95,7 @@ export const useBudgetStore = defineStore('budget', {
             const workersStore = useWorkersStore()
             const worker = workersStore.getWorker(workerName)
 
-            if (this.money >= worker.price) {
+            if (this.money >= worker.price && worker.count < worker.max) {
                 this.money -= worker.price;
                 worker.count++
                 worker.price *= 1.1;
@@ -115,13 +115,18 @@ export const useBudgetStore = defineStore('budget', {
             // продажа
             const workersStore = useWorkersStore()
             const worker = workersStore.getWorker(workerName)
-            this.money += worker.price * 0.7;
-            worker.count--
-            this.workersPurchased--
+            if (this.money >= 0 && worker.count > 0) {
+                this.money += worker.price * 0.7;
+                worker.count--
+                this.workersPurchased--
 
-            this.autoClick += worker.income
-            this.autoFood -= worker.food
-            this.autoClean -= worker.clean
+                this.autoClick += worker.income
+                this.autoFood -= worker.food
+                this.autoClean -= worker.clean
+            }
+            else {
+                this.badMove()
+            }
         },
 
         updateWorker(workerName) {
