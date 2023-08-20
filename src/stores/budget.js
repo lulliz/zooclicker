@@ -156,8 +156,8 @@ export const useBudgetStore = defineStore('budget', {
                 extra.price *= 2;
 
                 this.autoClick += extra.income
-                this.autoFood -= extra.food
-                this.autoClean -= extra.clean
+                this.autoFood += extra.food
+                this.autoClean += extra.clean
 
                 this.extraPurchased++
                 console.log(extraName);

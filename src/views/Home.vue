@@ -2,8 +2,8 @@
   <div @keydown.prevent="false" class="home bg-base-100 shadow-xl rounded-box mt-4 p-4 md:p-8">
     <h1 class="text-2xl font-bold mb-4">Dashboard</h1>
     <div class="flex flex-col lg:flex-row gap-4">
-      <div class="flex flex-row flex-wrap lg:flex-col justify-between lg:justify-normal gap-4 w-full lg:w-1/3 xl:w-1/5">
-        <div class="stats w-full lg:w-auto border">
+      <div class="flex flex-row flex-wrap lg:flex-col justify-between lg:justify-normal gap-4 w-full lg:w-1/3 xl:w-1/5 min-w-auto lg:min-w-max">
+        <div class="cf-stats stats w-11/12 md:w-full m-auto rounded-none rounded-t-xl md:rounded-xl border fixed md:relative right-0 left-0 bottom-0 z-20">
           <div class="stat flex justify-between">
             <button @click="budget.getCoin()" class="btn w-2/5 btn-success touch-manipulation">Coin</button>
             <button @click="budget.getFood()" class="btn w-2/5 btn-warning touch-manipulation">Food</button>
@@ -48,7 +48,7 @@
             <div class="stat-value text-3xl">{{ numberConverter(budget.animalsPurchased) }}</div>
           </div>
         </div>
-        <div class="stats border w-full md:w-2/5 lg:w-auto">
+        <div class="stats border w-full md:hidden lg:block lg:w-auto">
           <div class="stat">
             <div class="stat-figure text-primary">
               <p class="p-4 text-4xl">🧑</p>
@@ -356,5 +356,11 @@ onMounted(() => {
   overflow: hidden;
   background-image: repeating-linear-gradient(45deg, hsl(var(--b1)), hsl(var(--b1)) 13px, hsl(var(--b2)) 13px, hsl(var(--b2)) 14px);
   /* border: 1px solid; */
+}
+
+@media screen and (max-width: 640px) {
+  .cf-stats {
+    box-shadow: 0 -20px 25px -5px rgb(0 0 0 / 0.1), 0 -8px 10px -6px rgb(0 0 0 / 0.1);
+  }
 }
 </style>

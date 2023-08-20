@@ -6,7 +6,7 @@
                 <div class="btn btn-xs btn-outline btn-neutral border">{{ extra.count }}</div>
             </div>
             <h2 class="card-title capitalize">{{ extra.name }}</h2>
-            <img :src="getImage(extra.name)" alt="Avatar" class="w-1/4 m-auto" />
+            <img :src="getImage(extra.name)" alt="Avatar" class="w-1/5 m-auto" />
             <div class="grid grid-cols-5 gap-2 md:gap-4 mt-4">
                 <button @click="budget.buyExtra(extra.name)" class="btn btn-md xl:btn-sm btn-success col-span-2"
                     :class="extra.price > budget.money ? 'btn-disabled' : ''">Buy <font-awesome-icon icon="paw" /></button>
