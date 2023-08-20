@@ -11,7 +11,7 @@
           <a class="btn btn-ghost normal-case text-xl">🥕 {{ numberConverter(budget.foodCollected) }}</a>
           <a class="btn btn-ghost normal-case text-xl">🧹 {{ numberConverter(budget.clean) }}</a>
         </div>
-        <div v-if="route.path == '/'"></div>
+        <div v-if="route.path == '/'" class="md:hidden lg:block"></div>
         <div class="">
           <RouterLink to="/store" class="btn btn-square btn-ghost text-xl">
             <font-awesome-icon icon="store" />

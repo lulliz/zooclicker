@@ -3,7 +3,7 @@
     <h1 class="text-2xl font-bold mb-4">Dashboard</h1>
     <div class="flex flex-col lg:flex-row gap-4">
       <div class="flex flex-row flex-wrap lg:flex-col justify-between lg:justify-normal gap-4 w-full lg:w-1/3 xl:w-1/5 min-w-auto lg:min-w-max">
-        <div class="cf-stats stats w-11/12 md:w-full m-auto rounded-none rounded-t-xl md:rounded-xl border fixed md:relative right-0 left-0 bottom-0 z-20">
+        <div class="cf-stats stats w-11/12 md:w-full m-auto rounded-none rounded-t-xl md:rounded-xl md:border fixed md:relative right-0 left-0 bottom-0 z-20">
           <div class="stat flex justify-between">
             <button @click="budget.getCoin()" class="btn w-2/5 btn-success touch-manipulation">Coin</button>
             <button @click="budget.getFood()" class="btn w-2/5 btn-warning touch-manipulation">Food</button>
@@ -192,21 +192,10 @@
 import { onMounted, ref, watch } from 'vue'
 import { useBudgetStore } from '@/stores/budget.js'
 import { useAnimalsStore } from '@/stores/animals.js'
+import { numberConverter } from '../helpers/converter';
 
 const budget = useBudgetStore()
 const animals = useAnimalsStore()
-
-// корректное оторажение чисел
-const numberConverter = (value) => {
-  value = Math.abs(value)
-  if (value > 999 && value < 1000000) {
-    return (Math.floor(value) / 1000).toFixed(1) + 'k'
-  } else if (value > 999999) {
-    return (Math.floor(value) / 1000000).toFixed(1) + 'm'
-  } else {
-    return Math.floor(value)
-  }
-}
 
 
 const isWelcome = ref(true)
@@ -284,26 +273,27 @@ function setRandomPositions(list) {
   maxTop.value = cage.value.offsetHeight - ballSize
   maxLeft.value = cage.value.offsetWidth - ballSize
   if (list.length != 0) {
-    const then = ref(Date.now())
+    // const then = ref(Date.now())
     list.forEach(item => {
       item.top = Math.floor(Math.random() * maxTop.value)
       item.left = Math.floor(Math.random() * maxLeft.value)
     })
-    function animate() {
-      const delta = Date.now() - then.value;
-      if (delta < 5000) {
-        requestAnimationFrame(animate);
-        return;
-      }
-      then.value = Date.now();
-      const randomItem = list[Math.floor(Math.random() * list.length)]
-      randomItem.top = Math.floor(Math.random() * maxTop.value)
-      randomItem.left = Math.floor(Math.random() * maxLeft.value)
-      randomItem.delay = Math.random() * 5
-      randomItem.speed = (Math.random() * 5) + 1
-      requestAnimationFrame(animate);
-    }
-    requestAnimationFrame(animate);
+    // function animate() {
+    //   const delta = Date.now() - then.value;
+    //   if (delta < 5000) {
+    //     requestAnimationFrame(animate);
+    //     return;
+    //   }
+    //   then.value = Date.now();
+    //   const randomItem = list[Math.floor(Math.random() * list.length)]
+    //   randomItem.top = Math.floor(Math.random() * maxTop.value)
+    //   randomItem.left = Math.floor(Math.random() * maxLeft.value)
+    //   randomItem.delay = Math.random() * 5
+    //   randomItem.speed = (Math.random() * 5) + 1
+    //   requestAnimationFrame(animate);
+    // }
+    // requestAnimationFrame(animate);
+    // ВРЕМЕННО отключил анимацию, так как надо придумать что-то лучше и оптимальнее по ресурсам
   }
 }
 
@@ -323,9 +313,6 @@ onMounted(() => {
   watchAndGenerateList(allAnimals.bear)
   watchAndGenerateList(allAnimals.dumbo)
   watchAndGenerateList(allAnimals.dino)
-
-  // maxTop.value = cage.value.offsetHeight - ballSize
-  // maxLeft.value = cage.value.offsetWidth - ballSize
 
   setRandomPositions(allAnimals.rabbit.list.value)
   setRandomPositions(allAnimals.fox.list.value)

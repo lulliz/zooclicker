@@ -20,11 +20,20 @@
       </div>
     </div>
   </div>
-  <!-- <td v-if="(hType.count > 0 || hType.unlock) && (typeIt == 'animal' || typeIt == 'extra')"
-          class="text-success text-center">+ {{ numberConverter(hType.income) }}</td> -->
+  <div v-if="!hType.unlock" class="card card-compact bg-base-100 border relative">
+        <div class="card-body grayscale">
+            <img src="@/assets/icons/profits.png" alt="Avatar" class="w-1/5 mx-auto my-8" />
+            <button class="btn btn-error col-span-2 touch-manipulation">Need {{ numberConverter(hType.price) }}</button>
+        </div>
+    </div>
 </template>
 
 <script setup>
+import { useBudgetStore } from '@/stores/budget.js'
+import { watchEffect } from 'vue'
+import { numberConverter } from '../helpers/converter';
+
+const budget = useBudgetStore()
 
 const props = defineProps({
   hType: {
@@ -37,15 +46,12 @@ const props = defineProps({
   }
 })
 
-const numberConverter = (value) => {
-  if (value > 999 && value < 1000000) {
-    return (Math.floor(value) / 1000).toFixed(2) + 'k'
-  } else if (value > 999999) {
-    return (Math.floor(value) / 1000000).toFixed(2) + 'm'
-  } else {
-    return value.toFixed(2)
-  }
-}
+watchEffect(() => {
+    if (budget.money >= props.hType.price && !props.hType.unlock) {
+        props.hType.unlock = true
+    }
+})
+
 
 const getImage = (name) => new URL(`../assets/icons/${name}.png`, import.meta.url).href
 </script>

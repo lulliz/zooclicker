@@ -2,7 +2,7 @@
   <div class="store bg-base-100 shadow-xl rounded-box mt-4 p-4 md:p-8">
     <h1 class="text-2xl font-bold mb-4">Store</h1>
     <div
-      class="tabs tabs-boxed w-11/12 md:w-full xl:w-1/3 m-auto bg-base-100 p-4 border rounded-none rounded-t-xl md:rounded-xl md:mb-4 fixed bottom-0 right-0 left-0 md:relative z-20">
+      class="tabs tabs-boxed w-11/12 md:w-full xl:w-1/3 m-auto bg-base-100 p-4 md:border rounded-none rounded-t-xl md:rounded-xl md:mb-4 fixed bottom-0 right-0 left-0 md:relative z-20">
       <a @click="changeTab(0)" class="tab tab-lg cursor-pointer w-1/3"
         :class="currentTab == 0 ? 'tab-active' : ''">Workers</a>
       <a @click="changeTab(1)" class="tab tab-lg cursor-pointer w-1/3"
