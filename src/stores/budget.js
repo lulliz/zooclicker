@@ -2,6 +2,7 @@ import { defineStore } from 'pinia'
 import { useAnimalsStore } from './animals.js'
 import { useWorkersStore } from './workers.js'
 import { useExtraStore } from './extra.js'
+import { useAchiveStore } from './achievements.js'
 import serializer from '@/helpers/serializer.js'
 
 
@@ -191,6 +192,7 @@ export const useBudgetStore = defineStore('budget', {
                         this.winner = true
                         clearInterval(gameTimer)
                     }
+                    this.isAchive()
                 }
                 else {
                     this.loser = true
@@ -225,6 +227,27 @@ export const useBudgetStore = defineStore('budget', {
 
         badMove() {
             console.log('U can not do that!');
+        },
+
+        isAchive() {
+            const achiveStore = useAchiveStore()
+            const animalsStore = useAnimalsStore()
+            
+            if (achiveStore.penguins()) {
+                this.foodCollected += 500
+            }
+            if (achiveStore.monkey()) {
+                const monkey = animalsStore.getAnimal('monkey')
+                for (let i = 0; i<4; i++) {
+                    monkey.count--
+
+                    this.autoClick -= monkey.income
+                    this.autoFood += monkey.food
+                    this.autoClean += monkey.clean
+
+                    this.animalsPurchased--
+                }
+            }
         }
     }
 })

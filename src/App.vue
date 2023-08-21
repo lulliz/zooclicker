@@ -33,6 +33,30 @@
       <!-- Thanks https://www.flaticon.com/ for all icons -->
     </footer>
     <Modal></Modal>
+    <dialog id="finaleModal" class="modal modal-bottom sm:modal-middle" :class="budget.winner ? 'modal-open' : ''">
+      <form method="dialog" class="modal-box w-full md:w-4/5 xl:w-2/3">
+        <h3 class="font-bold text-lg mb-2">Finale email</h3>
+        <img src="@/assets/icons/ticket.png" alt="new game" class="w-1/3 m-auto block my-2">
+        <h2 class="text-xl py-2">🎉 This is Julia again and I have something to congratulate you on! 🎉</h2>
+        <p class="text-lg py-2">Looks like things are going great at the zoo and you deserve that "golden ticket".</p>
+        <p class="text-lg py-2">It will allow you to create your own zoo, start all over again 😉</p>
+        <p class="text-lg py-2">It was a pleasure to work with you. You rock!</p>
+        <div class="modal-action">
+          <button class="btn" @click="budget.newGamePlus()">New Game</button>
+        </div>
+      </form>
+    </dialog>
+    <dialog id="sadModal" class="modal modal-bottom sm:modal-middle" :class="budget.loser ? 'modal-open' : ''">
+      <form method="dialog" class="modal-box w-full md:w-4/5 xl:w-2/3">
+        <h3 class="font-bold text-lg mb-2">Sad email</h3>
+        <img src="@/assets/icons/sad.png" alt="new game" class="w-1/3 m-auto block my-2">
+        <h2 class="text-xl py-2">😔 This is Julia and I'm really upset...</h2>
+        <p class="text-lg py-2">I hope you do better next time.</p>
+        <div class="modal-action">
+          <button class="btn" @click="budget.gameOver()">Restart</button>
+        </div>
+      </form>
+    </dialog>
   </div>
 </template>
 
@@ -41,19 +65,11 @@ import { RouterLink, RouterView, useRoute } from 'vue-router'
 import { useBudgetStore } from '@/stores/budget.js'
 import Modal from '@/components/Modal.vue'
 import { onMounted } from 'vue';
+import { numberConverter } from './helpers/converter';
 
 const budget = useBudgetStore()
 const route = useRoute()
 
-const numberConverter = (value) => {
-  if (value > 999 && value < 1000000) {
-    return (Math.floor(value) / 1000).toFixed(1) + 'k' 
-  } else if (value > 999999) {
-    return (Math.floor(value) / 1000000).toFixed(1) + 'm'
-  } else {
-    return Math.floor(value)
-  }
-}
 
 onMounted(() => {
   budget.income()
