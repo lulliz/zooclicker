@@ -9,7 +9,7 @@
             <img :src="getImage(animal.name)" alt="Avatar" class="w-1/5 m-auto" />
             <div class="grid grid-cols-5 gap-2 md:gap-4 mt-4">
                 <button @click="budget.buyAnimal(animal.name)" class="btn btn-success col-span-2 touch-manipulation"
-                    :class="animal.price > budget.money ? 'btn-disabled' : ''">Buy <font-awesome-icon icon="paw" /></button>
+                    :class="animal.price > budget.money || animal.count == animal.max ? 'btn-disabled' : ''">Buy <font-awesome-icon icon="paw" /></button>
                 <div v-if="animal.count > 0 && animal.unlock" class="tooltip tooltip-warning tooltip-bottom" :data-tip="`Try Your luck for 💰${numberConverter(animal.price * 1.2)}`">
                     <button @click="budget.updateAnimal(animal.name)"
                         class="btn btn-warning touch-manipulation">

@@ -9,7 +9,7 @@
             <img :src="getImage(extra.name)" alt="Avatar" class="w-1/5 m-auto" />
             <div class="grid grid-cols-5 gap-2 md:gap-4 mt-4">
                 <button @click="budget.buyExtra(extra.name)" class="btn btn-md xl:btn-sm btn-success col-span-2 touch-manipulation"
-                    :class="extra.price > budget.money ? 'btn-disabled' : ''">Buy <font-awesome-icon icon="paw" /></button>
+                    :class="extra.price > budget.money || extra.count == extra.max ? 'btn-disabled' : ''">Buy <font-awesome-icon icon="paw" /></button>
                 
             </div>
         </div>
