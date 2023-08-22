@@ -57,6 +57,7 @@
         </div>
       </form>
     </dialog>
+    <SWupdate></SWupdate>
   </div>
 </template>
 
@@ -64,6 +65,7 @@
 import { RouterLink, RouterView, useRoute } from 'vue-router'
 import { useBudgetStore } from '@/stores/budget.js'
 import Modal from '@/components/Modal.vue'
+import SWupdate from '@/components/SWupdate.vue'
 import { onMounted } from 'vue';
 import { numberConverter } from './helpers/converter';
 
