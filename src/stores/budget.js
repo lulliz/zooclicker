@@ -154,8 +154,13 @@ export const useBudgetStore = defineStore('budget', {
             if (this.money >= extra.price && extra.count < extra.max) {
                 this.money -= extra.price;
                 extra.count++
-                extra.price *= 2;
-
+                if (extra.name == 'click') {
+                    extra.price *= 4;
+                }
+                else {
+                    extra.price *= 2;
+                }
+                
                 this.autoClick += extra.income
                 this.autoFood += extra.food
                 this.autoClean += extra.clean
@@ -232,7 +237,7 @@ export const useBudgetStore = defineStore('budget', {
         isAchive() {
             const achiveStore = useAchiveStore()
             const animalsStore = useAnimalsStore()
-            
+
             if (achiveStore.penguins()) {
                 this.foodCollected += 500
             }

@@ -9,8 +9,8 @@
             <img :src="getImage(worker.name)" alt="Avatar" class="w-1/5 m-auto" />
             <div class="grid grid-cols-5 gap-2 md:gap-4 mt-4">
                 <button @click="budget.buyWorker(worker.name)" class="btn btn-md xl:btn-sm btn-success col-span-2 touch-manipulation"
-                    :class="worker.price > budget.money ? 'btn-disabled' : ''">Hire <font-awesome-icon icon="paw" /></button>
-                <div v-if="worker.count > 0 && worker.unlock || worker.count == worker.max" class="tooltip tooltip-warning tooltip-bottom"
+                    :class="worker.price > budget.money || worker.count == worker.max ? 'btn-disabled' : ''">Hire <font-awesome-icon icon="paw" /></button>
+                <div v-if="worker.count > 0 && worker.unlock" class="tooltip tooltip-warning tooltip-bottom"
                     :data-tip="`Try Your luck for 💰${numberConverter(worker.price * 1.2)}`">
                     <button @click="budget.updateWorker(worker.name)"
                         class="btn btn-md xl:btn-sm btn-warning touch-manipulation">

@@ -25,7 +25,7 @@ export const useWorkersStore = defineStore('workers', {
                     count: 0,
                     max: 16,
                     price: 262144,
-                    income: 8192,
+                    income: 4096,
                     clean: 256,
                     food: 1024,
                     health: 16,

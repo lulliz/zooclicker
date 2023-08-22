@@ -15,7 +15,7 @@ export const useAnimalsStore = defineStore('animals', {
                     food: 1,
                     clean: 0.5,
                     health: 8,
-                    income: 8,
+                    income: 16,
                     max: 32,
                     unlock: false
                 },
