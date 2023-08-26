@@ -160,7 +160,7 @@ export const useBudgetStore = defineStore('budget', {
                 else {
                     extra.price *= 2;
                 }
-                
+
                 this.autoClick += extra.income
                 this.autoFood += extra.food
                 this.autoClean += extra.clean
@@ -234,6 +234,17 @@ export const useBudgetStore = defineStore('budget', {
             console.log('U can not do that!');
         },
 
+        animalHasGone(a) {
+            const animalsStore = useAnimalsStore()
+            const animal = animalsStore.getAnimal(a)
+
+            animal.count--
+            this.autoClick -= animal.income
+            this.autoFood += animal.food
+            this.autoClean += animal.clean
+            this.animalsPurchased--
+        },
+
         isAchive() {
             const achiveStore = useAchiveStore()
             const animalsStore = useAnimalsStore()
@@ -242,16 +253,30 @@ export const useBudgetStore = defineStore('budget', {
                 this.foodCollected += 500
             }
             if (achiveStore.monkey()) {
-                const monkey = animalsStore.getAnimal('monkey')
-                for (let i = 0; i<4; i++) {
-                    monkey.count--
-
-                    this.autoClick -= monkey.income
-                    this.autoFood += monkey.food
-                    this.autoClean += monkey.clean
-
-                    this.animalsPurchased--
+                for (let i = 0; i < 4; i++) {
+                    this.animalHasGone('monkey')
                 }
+            }
+            if (achiveStore.superStar()) {
+                this.money += 10000000
+            }
+            if (achiveStore.firstLion()) {
+                this.foodCollected += 200000
+                this.money += 50000000
+            }
+            if (achiveStore.bears()) {
+                this.foodCollected += 8000000
+            }
+            if (achiveStore.epidemy()) {
+                let alist = ['penguin', 'rabbit', 'fox', 'monkey', 'zebra', 'lion']
+                alist.forEach(animal => {
+                    const newAnimal = animalsStore.getAnimal(animal)
+                    const halfCount = parseInt(newAnimal.count / 2)
+                    console.log(halfCount);
+                    for (let i = 0; i < halfCount; i++) {
+                        this.animalHasGone(animal);
+                    }
+                });
             }
         }
     }
